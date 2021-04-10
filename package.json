@@ -1,0 +1,86 @@
+{
+  "name": "sql-template-strings-ts",
+  "version": "1.0.0",
+  "description": "Functional wrapper for sql-template-strings: ES6 tagged template strings for prepared statements with MySQL and PostgreSQL",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "ava",
+    "test:watch": "npm run test -- -w",
+    "coverage": "nyc npm run test",
+    "prebuild": "npm run clean-dist",
+    "build": "tsc --pretty -p tsconfig.build.json",
+    "clean-dist": "rimraf dist",
+    "start:watch": "ts-node-dev --inspect --notify=false src/app.ts",
+    "prettier:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
+    "prettier:fix": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\""
+  },
+  "keywords": [
+    "mysql",
+    "mysql2",
+    "postgres",
+    "postgresql",
+    "pg",
+    "prepared",
+    "statements",
+    "placeholder",
+    "tagged",
+    "template",
+    "strings",
+    "typescript"
+  ],
+  "author": "Denis Frezzato <denis.frezzato@tutanota.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DenisFrezzato/sql-template-strings-ts"
+  },
+  "bugs": {
+    "url": "https://github.com/DenisFrezzato/sql-template-strings-ts/issues"
+  },
+  "homepage": "https://github.com/DenisFrezzato/sql-template-strings-ts",
+  "devDependencies": {
+    "@types/node": "^14.14.37",
+    "ava": "^3.15.0",
+    "fp-ts": "^2.9.5",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.4",
+    "nyc": "^15.1.0",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "sql-template-strings": "^2.2.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  },
+  "peerDependencies": {
+    "sql-template-strings": "^2.2.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run build && npm run test"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write"
+    ]
+  },
+  "ava": {
+    "files": [
+      "test/**/*"
+    ],
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
+  },
+  "dependencies": {
+    "sql-template-strings-ts": "file:sql-template-strings-ts-1.0.0.tgz"
+  }
+}
