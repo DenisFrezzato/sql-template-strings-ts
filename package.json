@@ -1,6 +1,6 @@
 {
   "name": "sql-template-strings-ts",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Functional wrapper for sql-template-strings: ES6 tagged template strings for prepared statements with MySQL and PostgreSQL",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -79,8 +79,5 @@
     "require": [
       "ts-node/register"
     ]
-  },
-  "dependencies": {
-    "sql-template-strings-ts": "file:sql-template-strings-ts-1.0.0.tgz"
   }
 }
