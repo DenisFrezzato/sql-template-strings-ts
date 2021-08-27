@@ -1,6 +1,6 @@
 {
   "name": "sql-template-strings-ts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Functional wrapper for sql-template-strings: ES6 tagged template strings for prepared statements with MySQL and PostgreSQL",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "test": "ava",
-    "test:watch": "npm run test -- -w",
+    "test:watch": "npm run test -- --watch",
     "coverage": "nyc npm run test",
     "prebuild": "npm run clean-dist",
     "build": "tsc --pretty -p tsconfig.build.json",

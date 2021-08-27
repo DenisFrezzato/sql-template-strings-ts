@@ -5,6 +5,12 @@ export interface SQLStatement
   readonly SQLStatement: unique symbol
 }
 
+const clone = (statement: SQLStatement): SQLStatement =>
+  new (SQLStatement_ as any)(
+    (statement as any).strings.slice(0),
+    statement.values.slice(0),
+  ) as any
+
 /**
  * The template string tag.
  *
@@ -42,9 +48,9 @@ export const t: (
  * )
  * ```
  */
-export const append = (statement: SQLStatement | string | number) => (
-  sql: SQLStatement,
-): SQLStatement => (sql as any).append(statement)
+export const append = (second: SQLStatement | string | number) => (
+  first: SQLStatement,
+): SQLStatement => (clone(first) as any).append(second)
 
 /**
  * Sets the name property of this statement for prepared statements in PostgreSQL.
@@ -61,13 +67,15 @@ export const append = (statement: SQLStatement | string | number) => (
  *)
  * ```
  */
-export const setName = (name: string) => (sql: SQLStatement): SQLStatement =>
-  (sql as any).setName(name)
+export const setName = (name: string) => (
+  statement: SQLStatement,
+): SQLStatement => (clone(statement) as any).setName(name)
 
 /**
  * Use a prepared statement with Sequelize.
  * Makes `query` return a query with `$n` syntax instead of `?` and switches the `values`
  * key name to `bind`.
  */
-export const useBind = (bind: boolean) => (sql: SQLStatement): SQLStatement =>
-  (sql as any).useBind(bind)
+export const useBind = (bind: boolean) => (
+  statement: SQLStatement,
+): SQLStatement => (clone(statement) as any).useBind(bind)
