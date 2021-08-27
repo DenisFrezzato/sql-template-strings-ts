@@ -58,6 +58,14 @@ test('append statement', (t) => {
   assertStatement(t, sql, expectedSql)
 })
 
+test("append doesn't mutate the statement", (t) => {
+  const baseSql = SQL.t`SELECT * FROM `
+  SQL.append('table')(baseSql)
+  const expectedSql = SQL.t`SELECT * FROM `
+
+  t.deepEqual(baseSql, expectedSql)
+})
+
 test('useBind', (t) => {
   const sql = pipe(
     SQL.t`SELECT * FROM table WHERE column = ${42}`,
@@ -67,6 +75,14 @@ test('useBind', (t) => {
   expectedSql.useBind(true)
 
   assertStatement(t, sql, expectedSql)
+})
+
+test("useBind doesn't mutate the statement", (t) => {
+  const baseSql = SQL.t`SELECT * FROM table WHERE column = ${42}`
+  SQL.useBind(true)(baseSql)
+  const expectedSql = SQL.t`SELECT * FROM table WHERE column = ${42}`
+
+  t.deepEqual(baseSql, expectedSql)
 })
 
 test('setName', (t) => {
@@ -79,4 +95,12 @@ test('setName', (t) => {
   expectedSql.setName(name)
 
   assertStatement(t, sql, expectedSql)
+})
+
+test("setName doesn't mutate the statement", (t) => {
+  const baseSql = SQL.t`SELECT * FROM table WHERE column = ${42}`
+  SQL.setName('nice name')(baseSql)
+  const expectedSql = SQL.t`SELECT * FROM table WHERE column = ${42}`
+
+  t.deepEqual(baseSql, expectedSql)
 })
