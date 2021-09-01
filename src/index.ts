@@ -1,3 +1,5 @@
+import { Monoid as Monoid_ } from 'fp-ts/Monoid'
+import { Semigroup as Semigroup_ } from 'fp-ts/Semigroup'
 import SQL_, { SQLStatement as SQLStatement_ } from 'sql-template-strings'
 
 export interface SQLStatement
@@ -79,3 +81,12 @@ export const setName = (name: string) => (
 export const useBind = (bind: boolean) => (
   statement: SQLStatement,
 ): SQLStatement => (clone(statement) as any).useBind(bind)
+
+export const Semigroup: Semigroup_<SQLStatement> = {
+  concat: (x, y) => append(y)(x),
+}
+
+export const Monoid: Monoid_<SQLStatement> = {
+  empty: t``,
+  ...Semigroup,
+}

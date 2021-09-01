@@ -104,3 +104,21 @@ test("setName doesn't mutate the statement", (t) => {
 
   t.deepEqual(baseSql, expectedSql)
 })
+
+test('Semigroup', (t) => {
+  const sql = SQL.Semigroup.concat(
+    SQL.t`SELECT * FROM table `,
+    SQL.t`WHERE column = ${42}`,
+  )
+  t.deepEqual(sql, SQL.t`SELECT * FROM table WHERE column = ${42}`)
+})
+
+test('Monoid', (t) => {
+  t.deepEqual(SQL.Monoid.empty, SQL.t``)
+
+  const sql = SQL.Monoid.concat(
+    SQL.t`SELECT * FROM table `,
+    SQL.t`WHERE column = ${42}`,
+  )
+  t.deepEqual(sql, SQL.t`SELECT * FROM table WHERE column = ${42}`)
+})
